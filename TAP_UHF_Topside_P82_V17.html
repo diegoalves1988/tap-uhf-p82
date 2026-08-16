@@ -1,0 +1,1392 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="theme-color" content="#0b3558">
+<title>P-82 | TAP UHF Topside 5515.001 | V17</title>
+<style>
+:root{
+  --navy:#0b3558;--blue:#0d6fae;--blue2:#e8f3fb;--green:#16824b;--greenbg:#e8f7ef;
+  --amber:#9a6700;--amberbg:#fff4d6;--red:#b42318;--redbg:#fdecea;--gray:#667085;
+  --line:#d0d5dd;--bg:#f4f7fa;--card:#fff;--text:#172b3a;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:Arial,Helvetica,sans-serif}
+body{padding-bottom:88px}
+header{position:sticky;top:0;z-index:20;background:var(--navy);color:#fff;padding:12px 14px;box-shadow:0 2px 8px #0002}
+.headrow{display:flex;align-items:center;gap:10px}
+.logo{width:42px;height:42px;border:2px solid #fff;border-radius:10px;display:grid;place-items:center;font-weight:800;font-size:11px}
+h1{font-size:16px;margin:0;line-height:1.2}
+.sub{font-size:11px;opacity:.85;margin-top:3px}
+main{max-width:980px;margin:auto;padding:12px}
+.card{background:var(--card);border:1px solid #e3e8ee;border-radius:14px;padding:14px;margin-bottom:12px;box-shadow:0 1px 3px #0000000d}
+.card h2{font-size:16px;margin:0 0 10px}
+.card h3{font-size:14px;margin:0 0 8px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+@media(max-width:650px){.grid2,.grid3{grid-template-columns:1fr}}
+label{display:block;font-size:12px;font-weight:700;color:#344054;margin:7px 0 5px}
+input,select,textarea,button{font:inherit}
+input,select,textarea{width:100%;padding:11px 10px;border:1px solid #cbd5e1;border-radius:10px;background:#fff;color:#172b3a}
+.rssiInput{display:flex;align-items:center;border:1px solid #cbd5e1;border-radius:10px;background:#fff;overflow:hidden}
+.rssiInput .minus{padding:10px 0 10px 12px;font-size:22px;font-weight:800;color:#172b3a}
+.rssiInput input{border:0!important;border-radius:0!important;padding-left:5px!important;outline:none!important;font-size:19px;font-weight:700}
+.rssiInput .unit{padding:11px 12px 11px 4px;color:#667085;font-weight:700;white-space:nowrap}
+
+textarea{min-height:72px;resize:vertical}
+button{border:0;border-radius:10px;padding:11px 12px;font-weight:700;cursor:pointer}
+.btn{background:var(--blue);color:#fff}
+.btn.secondary{background:#eaf2f8;color:var(--navy)}
+.btn.green{background:var(--green);color:#fff}
+.btn.red{background:var(--red);color:#fff}
+.btn.dark{background:var(--navy);color:#fff}
+.btn.ghost{background:#fff;color:var(--navy);border:1px solid #b7c5d2}
+.btn.state-disabled{
+  background:#d9e1e8!important;color:#7b8794!important;cursor:not-allowed!important;
+  box-shadow:none!important;transform:none!important;
+}
+.btn.state-active{
+  transition:all .25s ease;box-shadow:0 0 0 3px rgba(13,111,174,.12);
+}
+.btn.pulse{
+  animation:pulseBtn .55s ease;
+}
+@keyframes pulseBtn{
+  0%{transform:scale(1)}
+  50%{transform:scale(.97)}
+  100%{transform:scale(1)}
+}
+
+.geoNativeWrap{
+  margin-top:10px;padding:10px;border:1px solid #cdd9e3;border-radius:12px;background:#f8fbfd;
+}
+.geoNativeWrap b{display:block;margin-bottom:6px}
+geolocation{
+  display:block;
+  width:100%;
+  min-height:48px;
+  font-size:16px;
+  border-radius:10px;
+}
+
+.actions{display:flex;gap:8px;flex-wrap:wrap}
+.actions button{flex:1;min-width:120px}
+.tabs{display:flex;gap:5px;overflow-x:auto;padding:5px 0 8px;scrollbar-width:none}
+.tabs button{white-space:nowrap;background:#e6edf3;color:#344054;padding:9px 12px}
+.tabs button.active{background:var(--navy);color:#fff}
+.hidden{display:none!important}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+@media(max-width:650px){.kpis{grid-template-columns:repeat(2,1fr)}}
+.kpi{border:1px solid #dce3ea;background:#fff;border-radius:12px;padding:10px}
+.kpi b{display:block;font-size:21px}.kpi span{font-size:11px;color:var(--gray)}
+.progress{height:9px;background:#e9eef3;border-radius:999px;overflow:hidden;margin-top:7px}
+.progress>i{display:block;height:100%;background:var(--green);width:0}
+.module{border:1px solid #dce3ea;border-radius:12px;margin:8px 0;overflow:hidden;background:#fff}
+.moduleHead{padding:11px;display:flex;align-items:center;gap:8px;cursor:pointer}
+.moduleHead .name{font-weight:800;font-size:15px;min-width:55px}
+.moduleHead .bar{flex:1;height:8px;background:#edf1f5;border-radius:99px;overflow:hidden}
+.moduleHead .bar i{display:block;height:100%;background:var(--green)}
+.moduleHead .count{font-size:11px;color:var(--gray);white-space:nowrap}
+.prov{font-size:10px;background:var(--amberbg);color:var(--amber);padding:3px 6px;border-radius:99px;font-weight:700}
+.levels{border-top:1px solid #edf0f3}
+.level{padding:10px 11px;border-bottom:1px solid #edf0f3;display:flex;align-items:center;gap:9px}
+.level:last-child{border-bottom:0}
+.level .txt{flex:1}.level .txt b{font-size:13px}.level .txt small{display:block;color:var(--gray);margin-top:2px}
+.badge{padding:4px 7px;border-radius:99px;font-size:10px;font-weight:800}
+.b0{background:#eef2f6;color:#667085}.b1{background:var(--greenbg);color:var(--green)}.b2{background:var(--amberbg);color:var(--amber)}.b3{background:var(--redbg);color:var(--red)}
+.measureHead{display:flex;justify-content:space-between;gap:8px;align-items:flex-start}
+.measureHead h2{margin-bottom:2px}
+.meta{font-size:11px;color:var(--gray)}
+.metricbox{background:#f8fafc;border:1px solid #e4e7ec;padding:10px;border-radius:10px}
+.metricbox .value{font-size:20px;font-weight:800}
+.metricbox small{color:var(--gray)}
+.statusLine{padding:10px;border-radius:10px;font-size:12px;font-weight:700;margin:8px 0}
+.ok{background:var(--greenbg);color:var(--green)}
+.warn{background:var(--amberbg);color:var(--amber)}
+.fail{background:var(--redbg);color:var(--red)}
+.info{background:var(--blue2);color:var(--navy)}
+.gpsbox{border:1px dashed #94a3b8;border-radius:12px;padding:10px;margin-top:8px;background:#fbfdff}
+.gpsgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:8px}
+.gpsgrid div{background:#f1f5f9;padding:7px;border-radius:8px}
+.gpsgrid b{display:block;font-size:12px}.gpsgrid span{font-size:10px;color:var(--gray)}
+@media(max-width:650px){.gpsgrid{grid-template-columns:repeat(2,1fr)}}
+.photoPreview{display:flex;gap:8px;overflow-x:auto;margin-top:8px}
+.photoPreview img{height:94px;width:126px;object-fit:cover;border-radius:9px;border:1px solid #ccd5dd}
+.listRec{border:1px solid #e1e7ec;border-radius:12px;padding:10px;margin:8px 0}
+.listRec .top{display:flex;justify-content:space-between;gap:8px}
+.listRec .vals{display:grid;grid-template-columns:repeat(4,1fr);gap:5px;margin-top:8px}
+.listRec .vals div{background:#f7f9fb;border-radius:7px;padding:6px;font-size:11px}
+@media(max-width:650px){.listRec .vals{grid-template-columns:repeat(2,1fr)}}
+table{border-collapse:collapse;width:100%;font-size:11px}
+th,td{border:1px solid #d7dee5;padding:7px;text-align:left;vertical-align:top}
+th{background:var(--navy);color:#fff;position:static;top:auto}
+.tablewrap{overflow:auto;max-height:60vh;border-radius:10px;border:1px solid #d7dee5}
+td.num{text-align:center;white-space:nowrap}
+.worst{font-weight:800}
+.worst.good{color:var(--green)}.worst.mid{color:var(--amber)}.worst.bad{color:var(--red)}
+footer{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid #d9e0e6;padding:7px;z-index:20}
+footer .foot{max-width:980px;margin:auto;display:grid;grid-template-columns:repeat(4,1fr);gap:5px}
+footer button{font-size:11px;padding:9px 5px;background:#edf2f6;color:#344054}
+footer button.active{background:var(--navy);color:#fff}
+.small{font-size:11px;color:var(--gray)}
+hr{border:0;border-top:1px solid #e6ebef;margin:12px 0}
+.toast{position:fixed;left:50%;bottom:95px;transform:translateX(-50%);background:#172b3a;color:#fff;padding:10px 14px;border-radius:10px;z-index:99;display:none;font-size:12px;max-width:90%}
+.modal{position:fixed;inset:0;background:#0008;z-index:50;display:grid;place-items:center;padding:14px}
+.modalbox{background:#fff;width:min(720px,100%);max-height:88vh;overflow:auto;border-radius:14px;padding:14px}
+.mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:10px}
+.sourceNote{font-size:10px;color:#667085;line-height:1.35}
+.checkline{display:flex;align-items:flex-start;gap:7px;margin:8px 0}
+.checkline input{width:auto;margin-top:2px}
+
+/* V14 - consolidated header must not float */
+#consolidatedTable thead,
+#consolidatedTable thead th,
+#consolidatedTable th {
+  position: static !important;
+  top: auto !important;
+  z-index: auto !important;
+}
+
+
+/* V15 - consolidated table header scrolls normally with the table */
+#consolidatedTable thead,
+#consolidatedTable thead tr,
+#consolidatedTable thead th {
+  position: static !important;
+  top: auto !important;
+  inset: auto !important;
+  transform: none !important;
+  z-index: auto !important;
+}
+
+</style>
+</head>
+<body>
+<header>
+  <div class="headrow">
+    <div class="logo">P-82</div>
+    <div>
+      <h1>TAP UHF Topside — SSOP 5515.001</h1>
+      <div class="sub">V17 • Downlink RSSI + GPS • RSSI Downlink • GPS • Evidências</div>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section id="viewHome">
+    <div class="card">
+      <h2>Iniciar inspeção</h2>
+      <div id="inspectionGate" class="statusLine warn">
+        1. Preencha Nome e Matrícula. 2. Toque em <b>Nova inspeção</b>. Só depois os módulos serão liberados para medição.
+      </div>
+      <div class="grid2">
+        <div><label>Nome</label><input id="techName" placeholder="Nome do executante"></div>
+        <div><label>Matrícula</label><input id="techId" placeholder="Matrícula"></div>
+      </div>
+      <div class="actions" style="margin-top:10px">
+        <button class="btn" onclick="saveProfile()">Nova inspeção</button>
+        <button class="btn secondary" onclick="runDiagnostics()">Testar GPS / armazenamento</button>
+      </div>
+      <div id="diag" class="small" style="margin-top:8px"></div>
+      <div class="small" style="margin-top:6px">
+        Se o GPS não funcionar e o endereço começar com content:// ou file://, abra o app por uma URL HTTPS. A permissão do Android sozinha não é suficiente nesse modo local.
+      </div>
+      <div id="storageBanner" class="statusLine info" style="margin-top:8px">Verificando armazenamento local...</div>
+    </div>
+
+    <div class="kpis">
+      <div class="kpi"><b id="kpiLocations">0</b><span>pontos previstos</span></div>
+      <div class="kpi"><b id="kpiDone">0</b><span>pontos medidos</span></div>
+      <div class="kpi"><b id="kpiMeasurements">0</b><span>medições registradas</span></div>
+      <div class="kpi"><b id="kpiFail">0</b><span>pontos abaixo de -78 dBm</span></div>
+    </div>
+
+    <div class="card" style="margin-top:12px">
+      <div style="display:flex;justify-content:space-between;gap:10px;align-items:center">
+        <div><h2 style="margin:0">Progresso geral</h2><div class="small" id="progressText"></div></div>
+        <b id="progressPct">0%</b>
+      </div>
+      <div class="progress"><i id="progressBar"></i></div>
+    </div>
+
+    <div class="card">
+      <h2>Módulos do Topside</h2>
+      <div class="small">M03 e M08 não existem. M15B pertence ao Hull. Lista sincronizada com a Rev.4 da tabela de medição.</div>
+      <div id="moduleList"></div>
+    </div>
+  </section>
+
+  <section id="viewMeasure" class="hidden">
+    <div class="card">
+      <div class="measureHead">
+        <div>
+          <h2 id="measureTitle">Módulo / Nível</h2>
+          <div class="meta" id="measureMeta"></div>
+        </div>
+        <button class="btn ghost" onclick="goHome()">← Voltar</button>
+      </div>
+      </div>
+
+    <div class="card">
+      <h3>GPS da medição</h3>
+      <div id="httpsGate" class="statusLine info" style="margin-top:8px">Verificando origem segura...</div>
+      <div class="small">
+        Ao tocar em <b>Registrar medição</b>, o app captura automaticamente uma única coordenada GPS
+        daquele instante e salva latitude, longitude, precisão e horário junto com a leitura.
+      </div>
+      <div class="actions" style="margin-top:8px">
+        <button class="btn secondary" onclick="testGpsHttps()">📍 Testar GPS</button>
+      </div>
+      <div id="gpsStatus" class="statusLine info">A coordenada será capturada no momento do registro.</div>
+      <div class="gpsgrid">
+        <div><b id="gpsLat">—</b><span>última latitude</span></div>
+        <div><b id="gpsLon">—</b><span>última longitude</span></div>
+        <div><b id="gpsAccuracy">—</b><span>precisão</span></div>
+        <div><b id="gpsFixTime">—</b><span>horário do GPS</span></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Valores medidos</h3>
+      <div id="pointNumber" class="statusLine info" style="margin-bottom:10px">Próximo registro: ponto 1 deste local.</div>
+      <label>RSSI Downlink</label>
+      <div class="rssiInput">
+        <span class="minus">−</span>
+        <input id="rssiDownAbs" type="number" min="0" max="150" step="1" inputmode="numeric" placeholder="67">
+        <span class="unit">dBm</span>
+      </div>
+      <div class="small" style="margin-top:6px">Digite somente o número. Ex.: <b>67</b> será salvo como <b>−67 dBm</b>.</div>
+      <div id="rssiHint" class="statusLine info">Critério do TAP: RSSI Downlink ≥ -78 dBm. Leitura mais fraca que -75 dBm deve ser registrada em punch conforme o procedimento.</div>
+
+      <label>Observação</label>
+      <textarea id="remarks" placeholder="Ex.: região sombreada por estrutura, perda de áudio, ponto próximo à escada..."></textarea>
+
+      <label>Fotos / evidências</label>
+      <input id="photoInput" type="file" accept="image/*" capture="environment" multiple>
+      <div class="small">
+        A foto é reduzida para armazenamento interno no app e o navegador também recebe automaticamente
+        uma <b>cópia JPG de segurança</b> com nome organizado para salvar no aparelho.
+      </div>
+      <div id="photoBackupStatus" class="statusLine info" style="margin-top:8px">
+        Nenhuma cópia de segurança gerada nesta medição.
+      </div>
+      <div id="photoPreview" class="photoPreview"></div>
+
+      <div id="evidenceGate" class="statusLine warn" style="margin-top:12px">
+        <b>Para registrar a medição:</b><br>
+        ☐ Pelo menos 1 foto<br>
+        📍 GPS será capturado automaticamente ao salvar
+      </div>
+
+      <div class="actions" style="margin-top:12px">
+        <button id="saveMeasurementBtn" class="btn state-disabled" onclick="saveMeasurement()" disabled>💾 Registrar medição</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Histórico deste ponto</h3>
+      <div id="pointSummary"></div>
+      <div id="pointRecords"></div>
+    </div>
+  </section>
+
+  <section id="viewTable" class="hidden">
+    <div class="card">
+      <h2>Tabela consolidada — pior valor</h2>
+      <div class="small">Cada linha consolida todas as medições daquele local e mantém o pior RSSI Downlink. Registre quantos pontos forem necessários no mesmo módulo/nível.</div>
+      <div class="actions" style="margin-top:10px">
+        <button class="btn" onclick="exportConsolidatedCsv()">Exportar tabela TAP (CSV)</button>
+        <button class="btn secondary" onclick="exportRawCsv()">Exportar medições brutas (CSV)</button>
+        <button class="btn green" onclick="exportKml()">🌎 Exportar mapa GPS (KML)</button>
+      </div>
+    </div>
+    <div class="card">
+      <div class="tablewrap">
+        <table id="consolidatedTable">
+          <thead><tr>
+            <th>Mód.</th><th>Área / Nível</th><th>Elevação</th><th>N</th>
+            <th>Pior Downlink RSSI</th><th>Pior registro / evidência</th>
+          </tr></thead>
+          <tbody id="consolidatedBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section id="viewMerge" class="hidden">
+    <div class="card">
+      <h2>Backup e mesclagem entre técnicos</h2>
+      <div class="small">
+        Cada técnico trabalha no seu próprio HTML/celular. No final, cada um exporta um backup JSON.
+        Em um aparelho escolhido como consolidado, importe todos os backups. Registros repetidos são ignorados pelo ID único.
+      </div>
+      <div class="actions" style="margin-top:12px">
+        <button class="btn green" onclick="exportBackup()">⬇ Exportar meu backup</button>
+        <button class="btn" onclick="document.getElementById('importFile').click()">⬆ Mesclar backup(s)</button>
+        <input id="importFile" class="hidden" type="file" accept=".json,application/json" multiple onchange="importBackups(this.files)">
+      </div>
+      <hr>
+      <div class="grid2">
+        <div class="metricbox"><small>Medições neste aparelho</small><div class="value" id="mergeLocalCount">0</div></div>
+        <div class="metricbox"><small>Técnicos presentes na base</small><div class="value" id="mergeTechCount">0</div></div>
+      </div>
+      <div id="techList" class="small" style="margin-top:10px"></div>
+    </div>
+
+    <div class="card">
+      <h3>Segurança dos dados</h3>
+      <div class="checkline"><input type="checkbox" checked disabled><div>O backup inclui valores, GPS, trilha, data/hora, técnico e fotos compactadas.</div></div>
+      <div class="checkline"><input type="checkbox" checked disabled><div>A mesclagem não sobrescreve medições existentes; faz deduplicação pelo ID do registro.</div></div>
+      <div class="checkline"><input type="checkbox" checked disabled><div>Após mesclar, a tabela consolidada é recalculada automaticamente com o pior valor.</div></div>
+      <button class="btn red" style="margin-top:8px" onclick="clearAllData()">Apagar todos os dados deste navegador</button>
+    </div>
+  </section>
+
+  <section id="viewAudit" class="hidden">
+    <div class="card">
+      <h2>Evidências de percurso / evidências</h2>
+      <div class="small">Use esta tela para verificar se houve efetivamente permanência/deslocamento no nível, observando tempo, quantidade de pontos GPS, distância estimada, precisão e fotos.</div>
+      <div id="auditList"></div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="foot">
+    <button id="navHome" class="active" onclick="showView('Home')">Módulos</button>
+    <button id="navTable" onclick="showView('Table')">Consolidado</button>
+    <button id="navMerge" onclick="showView('Merge')">Mesclar</button>
+    <button id="navAudit" onclick="showView('Audit')">Evidências</button>
+  </div>
+</footer>
+
+<div id="toast" class="toast"></div>
+
+<div id="detailModal" class="modal hidden" onclick="if(event.target===this)closeModal()">
+  <div class="modalbox">
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:10px">
+      <h2 style="margin:0">Detalhe da medição</h2>
+      <button class="btn ghost" onclick="closeModal()">Fechar</button>
+    </div>
+    <div id="modalContent"></div>
+  </div>
+</div>
+
+<script>
+const LOCATIONS = [{"id": "PT-001", "module": "M01", "area": "Mezzanine Level", "elevation": "36392 mm"}, {"id": "PT-002", "module": "M01", "area": "1st Level", "elevation": "39792 mm"}, {"id": "PT-003", "module": "M01", "area": "2nd Level", "elevation": "53292 mm"}, {"id": "PT-004", "module": "M01", "area": "3rd Level", "elevation": "59292 mm"}, {"id": "PT-005", "module": "M01", "area": "Service Platform", "elevation": "64745 mm"}, {"id": "PT-006", "module": "M02", "area": "1st Level", "elevation": "39792 mm"}, {"id": "PT-007", "module": "M02", "area": "2nd Level", "elevation": "46792 mm"}, {"id": "PT-008", "module": "M02", "area": "3rd Level", "elevation": "50792 mm"}, {"id": "PT-009", "module": "M02", "area": "4th Level", "elevation": "55792 mm"}, {"id": "PT-010", "module": "M02", "area": "5th Level", "elevation": "60992 mm"}, {"id": "PT-011", "module": "M02", "area": "6th Level", "elevation": "68292 mm"}, {"id": "PT-012", "module": "M04", "area": "1st Level", "elevation": "39792 mm"}, {"id": "PT-013", "module": "M04", "area": "2nd Level", "elevation": "48800 mm"}, {"id": "PT-014", "module": "M04", "area": "3rd Level", "elevation": "57550 mm"}, {"id": "PT-015", "module": "M04", "area": "4th Level", "elevation": "62800 mm"}, {"id": "PT-016", "module": "M04", "area": "5th Level", "elevation": "66700 mm"}, {"id": "PT-017", "module": "M05", "area": "1st Level", "elevation": "39792 mm"}, {"id": "PT-018", "module": "M05", "area": "2nd Level", "elevation": "49792 mm"}, {"id": "PT-019", "module": "M05", "area": "3rd Level", "elevation": "54792 mm"}, {"id": "PT-020", "module": "M05", "area": "4th Level", "elevation": "62042 mm"}, {"id": "PT-021", "module": "M05", "area": "5th Level", "elevation": "70042 mm"}, {"id": "PT-022", "module": "M05", "area": "6th Level", "elevation": "73550 mm"}, {"id": "PT-023", "module": "M05B", "area": "1st Level", "elevation": "39808 mm"}, {"id": "PT-024", "module": "M05B", "area": "2nd Level", "elevation": "49822 mm"}, {"id": "PT-025", "module": "M05B", "area": "3rd Level", "elevation": "54800 mm"}, {"id": "PT-026", "module": "M05B", "area": "4th Level", "elevation": "62072 mm"}, {"id": "PT-027", "module": "M05B", "area": "5th Level", "elevation": "67072 mm"}, {"id": "PT-028", "module": "M06", "area": "1st Level", "elevation": "39792 mm"}, {"id": "PT-029", "module": "M06", "area": "2nd Level", "elevation": "46792 mm"}, {"id": "PT-030", "module": "M06", "area": "3rd Level", "elevation": "53792 mm"}, {"id": "PT-031", "module": "M06", "area": "4th Level", "elevation": "61300 mm"}, {"id": "PT-032", "module": "M07", "area": "1st Level", "elevation": "39792 mm"}, {"id": "PT-033", "module": "M07", "area": "2nd Level", "elevation": "48762 mm"}, {"id": "PT-034", "module": "M07", "area": "2nd Level", "elevation": "48792 mm"}, {"id": "PT-035", "module": "M07", "area": "3rd Level", "elevation": "50792 mm"}, {"id": "PT-036", "module": "M07", "area": "3rd Level", "elevation": "53762 mm"}, {"id": "PT-037", "module": "M07", "area": "4th Level", "elevation": "60762 mm"}, {"id": "PT-038", "module": "M07", "area": "4th Level – Service Platform", "elevation": "64427 mm"}, {"id": "PT-039", "module": "M07", "area": "5th Level", "elevation": "67762 mm"}, {"id": "PT-040", "module": "M09", "area": "1st Level", "elevation": "39792 mm"}, {"id": "PT-041", "module": "M09", "area": "2nd Level", "elevation": "44092 mm"}, {"id": "PT-042", "module": "M09", "area": "3rd Level", "elevation": "47792 mm"}, {"id": "PT-043", "module": "M09", "area": "4th Level", "elevation": "50792 mm"}, {"id": "PT-044", "module": "M09", "area": "5th Level", "elevation": "55492 mm"}, {"id": "PT-045", "module": "M09", "area": "6th Level (M09A–M09E)", "elevation": "62820 mm"}, {"id": "PT-046", "module": "M09", "area": "6th Level (M09A–M09E)", "elevation": "64020 mm"}, {"id": "PT-047", "module": "M10A", "area": "1st Level", "elevation": "39792 mm"}, {"id": "PT-048", "module": "M10A", "area": "1st Level Mezzanine", "elevation": "43700 mm"}, {"id": "PT-049", "module": "M10A", "area": "1st Level Mezzanine", "elevation": "44300 mm"}, {"id": "PT-050", "module": "M10A", "area": "2nd Level", "elevation": "46520 mm"}, {"id": "PT-051", "module": "M10A", "area": "2nd Level", "elevation": "48792 mm"}, {"id": "PT-052", "module": "M10A", "area": "2nd Level Mezzanine", "elevation": "50100 mm"}, {"id": "PT-053", "module": "M10A", "area": "2nd Level Mezzanine", "elevation": "55300 mm"}, {"id": "PT-054", "module": "M10A", "area": "3rd Level", "elevation": "59692 mm"}, {"id": "PT-055", "module": "M10A", "area": "4th Level", "elevation": "66670 mm"}, {"id": "PT-056", "module": "M10A", "area": "4th Level Mezzanine", "elevation": "69305 mm"}, {"id": "PT-057", "module": "M10B", "area": "1st Level", "elevation": "39792 mm"}, {"id": "PT-058", "module": "M10B", "area": "1st Level Mezzanine", "elevation": "44330 mm"}, {"id": "PT-059", "module": "M10B", "area": "2nd Level", "elevation": "48792 mm"}, {"id": "PT-060", "module": "M10B", "area": "2nd Level Mezzanine", "elevation": "55300 mm"}, {"id": "PT-061", "module": "M10B", "area": "3rd Level", "elevation": "59692 mm"}, {"id": "PT-062", "module": "M10B", "area": "4th Level", "elevation": "66670 mm"}, {"id": "PT-063", "module": "M10B", "area": "4th Level Mezzanine", "elevation": "67570 mm"}, {"id": "PT-064", "module": "M10B", "area": "4th Level Mezzanine", "elevation": "70805 mm"}, {"id": "PT-065", "module": "M11", "area": "1st Level", "elevation": "39792 mm"}, {"id": "PT-066", "module": "M11", "area": "1st Level Mezzanine", "elevation": "44800 mm"}, {"id": "PT-067", "module": "M11", "area": "2nd Level", "elevation": "48792 mm"}, {"id": "PT-068", "module": "M11", "area": "3rd Level", "elevation": "54292 mm"}, {"id": "PT-069", "module": "M11", "area": "4th Level", "elevation": "59950 mm"}, {"id": "PT-070", "module": "M11", "area": "5th Level", "elevation": "64093 mm"}, {"id": "PT-071", "module": "M11", "area": "7th Level", "elevation": "66922 mm"}, {"id": "PT-072", "module": "M11", "area": "9th Level", "elevation": "71934 mm"}, {"id": "PT-073", "module": "M11", "area": "UFU Membrane Skid Plan", "elevation": "59950 mm"}, {"id": "PT-074", "module": "M11", "area": "UFU Membrane Skid Plan", "elevation": "66921 mm"}, {"id": "PT-075", "module": "M11", "area": "SRU Membrane Skid Plan", "elevation": "59950 mm"}, {"id": "PT-076", "module": "M11", "area": "SRU Membrane Skid Plan", "elevation": "66921 mm"}, {"id": "PT-077", "module": "M12", "area": "1st Level", "elevation": "39800 mm"}, {"id": "PT-078", "module": "M12", "area": "2nd Level (2A & 2B)", "elevation": "48122 mm"}, {"id": "PT-079", "module": "M12", "area": "2nd Level (2A & 2B)", "elevation": "50662 mm"}, {"id": "PT-080", "module": "M12", "area": "3rd Level", "elevation": "52317 mm"}, {"id": "PT-081", "module": "M12", "area": "4th Level", "elevation": "56779 mm"}, {"id": "PT-082", "module": "M13", "area": "1st Level", "elevation": "39800 mm"}, {"id": "PT-083", "module": "M13", "area": "2nd Level (2A & 2B)", "elevation": "48100 mm"}, {"id": "PT-084", "module": "M13", "area": "2nd Level (2A & 2B)", "elevation": "50662 mm"}, {"id": "PT-085", "module": "M13", "area": "3rd Level", "elevation": "52325 mm"}, {"id": "PT-086", "module": "M13", "area": "4th Level", "elevation": "56779 mm"}, {"id": "PT-087", "module": "M13", "area": "Control Room 1st Level — Generators Power Panels Room (M13-401)", "elevation": "58586 mm"}, {"id": "PT-088", "module": "M13", "area": "Control Room 1st Level — Generators Control Panels Room (M13-403)", "elevation": "58586 mm"}, {"id": "PT-089", "module": "M13", "area": "Control Room 2nd Level — Generators Battery Room \"A\" (M13-501)", "elevation": "63507 mm"}, {"id": "PT-090", "module": "M13", "area": "Control Room 2nd Level — Generators HVAC Room (M13-502)", "elevation": "63507 mm"}, {"id": "PT-091", "module": "M13", "area": "Control Room 2nd Level — Generators Battery Room \"B\" (M13-503)", "elevation": "63507 mm"}, {"id": "PT-092", "module": "M13", "area": "Control Room 3rd Level", "elevation": "67460 mm"}, {"id": "PT-093", "module": "M14", "area": "1st Level", "elevation": "39792 mm"}, {"id": "PT-094", "module": "M14", "area": "2nd Level", "elevation": "46792 mm"}, {"id": "PT-095", "module": "M14", "area": "3rd Level", "elevation": "51792 mm"}, {"id": "PT-096", "module": "M14", "area": "4th Level", "elevation": "60350 mm"}, {"id": "PT-097", "module": "M14", "area": "5th Level", "elevation": "61792 mm"}, {"id": "PT-098", "module": "M15", "area": "1st Level — Operator's Room", "elevation": "39792 mm"}, {"id": "PT-099", "module": "M15", "area": "1st Level — Laboratory Office", "elevation": "39792 mm"}, {"id": "PT-100", "module": "M15", "area": "1st Level — Laboratory Equipment Area", "elevation": "39792 mm"}, {"id": "PT-101", "module": "M15", "area": "1st Level — Corridor", "elevation": "39792 mm"}, {"id": "PT-102", "module": "M15", "area": "1st Level — TLT Room", "elevation": "39792 mm"}, {"id": "PT-103", "module": "M15", "area": "1st Level — WC Men", "elevation": "39792 mm"}, {"id": "PT-104", "module": "M15", "area": "1st Level — WC Women", "elevation": "39792 mm"}, {"id": "PT-105", "module": "M15", "area": "2nd Level", "elevation": "47902 mm"}, {"id": "PT-106", "module": "M15", "area": "2nd Level Mezzanine", "elevation": "51562 mm"}, {"id": "PT-107", "module": "M15", "area": "3rd Level", "elevation": "57550 mm"}, {"id": "PT-108", "module": "M15", "area": "4th Level", "elevation": "65770 mm"}, {"id": "PT-109", "module": "M15B", "area": "1st Level", "elevation": "39800 mm"}, {"id": "PT-110", "module": "M15B", "area": "2nd Level — Outdoor Area", "elevation": "45800 mm"}, {"id": "PT-111", "module": "M15B", "area": "2nd Level — Diesel Generator Room — Port", "elevation": "45800 mm"}, {"id": "PT-112", "module": "M15B", "area": "2nd Level — Diesel Generator Room — Starboard", "elevation": "45800 mm"}, {"id": "PT-113", "module": "M15B", "area": "2nd Level Mezzanine — Port", "elevation": "45800 mm"}, {"id": "PT-114", "module": "M15B", "area": "2nd Level Mezzanine — Starboard", "elevation": "45800 mm"}, {"id": "PT-115", "module": "M15B", "area": "2nd Level Mezzanine — Panel Room — Port", "elevation": "45800 mm"}, {"id": "PT-116", "module": "M15B", "area": "2nd Level Mezzanine — Panel Room — Starboard", "elevation": "45800 mm"}, {"id": "PT-117", "module": "M15B", "area": "Top Deck", "elevation": "45800 mm"}, {"id": "PT-118", "module": "M16", "area": "1st Level", "elevation": "39800 mm"}, {"id": "PT-119", "module": "M16", "area": "2nd Level", "elevation": "57563 mm"}, {"id": "PT-120", "module": "M17", "area": "1st Level — Automation and Electrical Panels Room", "elevation": "41300 mm"}, {"id": "PT-121", "module": "M17", "area": "1st Level — Topside HVAC Room", "elevation": "41300 mm"}, {"id": "PT-122", "module": "M17", "area": "2nd Level — Topside Normal Panels Room 2-A", "elevation": "46300 mm"}, {"id": "PT-123", "module": "M17", "area": "2nd Level — Topside Normal Transformers Room", "elevation": "46300 mm"}, {"id": "PT-124", "module": "M17", "area": "3rd Level — Topside Normal Panels Room 2-B", "elevation": "53600 mm"}, {"id": "PT-125", "module": "M17", "area": "4th Level — Topside Normal Panels Room 1", "elevation": "59400 mm"}, {"id": "PT-126", "module": "M17", "area": "4th Level — Topside Batteries Room 1", "elevation": "59400 mm"}, {"id": "PT-127", "module": "M17", "area": "4th Level — Topside Batteries Room 2", "elevation": "59400 mm"}, {"id": "PT-128", "module": "M17", "area": "5th Level — HVAC Area", "elevation": "64400 mm"}];
+
+let db=null;
+let measurements=[];
+let storageMode='unknown'; // indexeddb | localstorage | memory
+let memoryStore=[];
+const LS_DATA_KEY='P82_TAP_UHF_MEASUREMENTS_V2';
+const LS_PROFILE_PREFIX='P82_TAP_UHF_PROFILE_';
+const LS_INSPECTION_SAVED='P82_TAP_UHF_INSPECTION_SAVED_V3';
+let inspectionDirty=false;
+
+let currentLocation=null;
+let pendingPhotos=[];
+let nativeGeoLast=null;
+
+const DB_NAME='P82_TAP_UHF_5515_001';
+const DB_VER=1;
+const STORE='measurements';
+
+function uid(){
+  return 'm_'+Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,10);
+}
+function safeLsGet(key){
+  try{return window.localStorage.getItem(key)}catch(e){return null}
+}
+function safeLsSet(key,val){
+  try{window.localStorage.setItem(key,val);return true}catch(e){return false}
+}
+function safeLsRemove(key){
+  try{window.localStorage.removeItem(key);return true}catch(e){return false}
+}
+function deviceId(){
+  let v=safeLsGet(LS_PROFILE_PREFIX+'device_id');
+  if(!v){
+    v='dev_'+Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,8);
+    safeLsSet(LS_PROFILE_PREFIX+'device_id',v);
+  }
+  return v;
+}
+function profile(){
+  return {
+    name:(safeLsGet(LS_PROFILE_PREFIX+'tech_name')||document.getElementById('techName')?.value||'').trim(),
+    matricula:(safeLsGet(LS_PROFILE_PREFIX+'tech_id')||document.getElementById('techId')?.value||'').trim(),
+    company:'Petrobras',
+    deviceId:deviceId()
+  };
+}
+
+function inspectionSaved(){
+  return safeLsGet(LS_INSPECTION_SAVED)==='1' && !inspectionDirty;
+}
+function markInspectionDirty(){
+  inspectionDirty=true;
+  safeLsSet(LS_INSPECTION_SAVED,'0');
+  updateInspectionGate();
+  renderHome();
+}
+function updateInspectionGate(){
+  const el=document.getElementById('inspectionGate');
+  if(!el)return;
+  if(inspectionSaved()){
+    const p=profile();
+    el.className='statusLine ok';
+    el.innerHTML=`✓ Inspeção ativa para <b>${esc(p.name)}</b> (${esc(p.matricula)}). Os módulos estão liberados para medição.`;
+  }else{
+    el.className='statusLine warn';
+    el.innerHTML='1. Preencha Nome e Matrícula. 2. Toque em <b>Nova inspeção</b>. Só depois os módulos serão liberados para medição.';
+  }
+}
+function saveProfile(){
+  const name=document.getElementById('techName').value.trim();
+  const matricula=document.getElementById('techId').value.trim();
+
+  if(!name || !matricula){
+    toast('Preencha Nome e Matrícula antes de criar a inspeção.');
+    return;
+  }
+
+  const vals={tech_name:name,tech_id:matricula,tech_company:'Petrobras'};
+  let ok=true;
+  for(const [k,v] of Object.entries(vals)) ok=safeLsSet(LS_PROFILE_PREFIX+k,v)&&ok;
+
+  inspectionDirty=false;
+  safeLsSet(LS_INSPECTION_SAVED,'1');
+
+  toast(ok?'Nova inspeção criada. Módulos liberados para medição.':'Inspeção ativa nesta tela. O navegador limitou a persistência.');
+  updateInspectionGate();
+  renderAll();
+}
+function loadProfile(){
+  const name=(safeLsGet(LS_PROFILE_PREFIX+'tech_name')||'').trim();
+  const matricula=(safeLsGet(LS_PROFILE_PREFIX+'tech_id')||'').trim();
+  const nameEl=document.getElementById('techName');
+  const idEl=document.getElementById('techId');
+  if(nameEl)nameEl.value=name;
+  if(idEl)idEl.value=matricula;
+}
+
+function canUseLocalStorage(){
+  try{
+    const k='__tap_storage_test__'+Date.now();
+    localStorage.setItem(k,'1');
+    localStorage.removeItem(k);
+    return true;
+  }catch(e){return false}
+}
+
+function openIndexedDb(){
+  return new Promise((resolve,reject)=>{
+    if(!window.indexedDB){reject(new Error('IndexedDB indisponível'));return}
+    let req;
+    try{req=indexedDB.open(DB_NAME,DB_VER)}catch(e){reject(e);return}
+    req.onupgradeneeded=e=>{
+      const d=e.target.result;
+      if(!d.objectStoreNames.contains(STORE)){
+        const s=d.createObjectStore(STORE,{keyPath:'id'});
+        s.createIndex('locationId','locationId',{unique:false});
+        s.createIndex('timestamp','timestamp',{unique:false});
+      }
+    };
+    req.onsuccess=e=>{db=e.target.result;resolve(db)};
+    req.onerror=e=>reject(e.target.error||new Error('Falha IndexedDB'));
+    req.onblocked=()=>reject(new Error('IndexedDB bloqueado'));
+  });
+}
+
+async function openStorage(){
+  try{
+    await openIndexedDb();
+    storageMode='indexeddb';
+    return;
+  }catch(e){
+    console.warn('IndexedDB indisponível neste contexto:',e);
+  }
+  if(canUseLocalStorage()){
+    storageMode='localstorage';
+    try{
+      const raw=localStorage.getItem(LS_DATA_KEY);
+      memoryStore=raw?JSON.parse(raw):[];
+      if(!Array.isArray(memoryStore))memoryStore=[];
+    }catch(e){memoryStore=[]}
+    return;
+  }
+  storageMode='memory';
+  memoryStore=[];
+}
+
+function persistLocalStore(arr){
+  localStorage.setItem(LS_DATA_KEY,JSON.stringify(arr));
+}
+
+function dbAll(){
+  if(storageMode==='indexeddb'){
+    return new Promise((resolve,reject)=>{
+      const tx=db.transaction(STORE,'readonly');
+      const req=tx.objectStore(STORE).getAll();
+      req.onsuccess=()=>resolve(req.result||[]);
+      req.onerror=()=>reject(req.error);
+    });
+  }
+  return Promise.resolve(memoryStore.slice());
+}
+
+async function dbPut(obj){
+  if(storageMode==='indexeddb'){
+    return new Promise((resolve,reject)=>{
+      const tx=db.transaction(STORE,'readwrite');
+      tx.objectStore(STORE).put(obj);
+      tx.oncomplete=()=>resolve();
+      tx.onerror=()=>reject(tx.error);
+    });
+  }
+
+  const idx=memoryStore.findIndex(x=>x.id===obj.id);
+  const next=memoryStore.slice();
+  if(idx>=0)next[idx]=obj;else next.push(obj);
+
+  if(storageMode==='localstorage'){
+    try{
+      persistLocalStore(next);
+      memoryStore=next;
+      return;
+    }catch(e){
+      // Se estourar a cota por causa de fotos, não perde os dados numéricos:
+      // tenta salvar o registro sem as imagens e avisa ao usuário.
+      if((obj.photos||[]).length){
+        const lite={...obj,photos:[],photoStorageWarning:true};
+        const liteNext=memoryStore.slice();
+        const li=liteNext.findIndex(x=>x.id===obj.id);
+        if(li>=0)liteNext[li]=lite;else liteNext.push(lite);
+        try{
+          persistLocalStore(liteNext);
+          memoryStore=liteNext;
+          alert('O navegador atingiu o limite de armazenamento para fotos. A medição foi salva SEM as imagens. Exporte um backup antes de continuar e reduza a quantidade de fotos.');
+          return;
+        }catch(e2){}
+      }
+      throw e;
+    }
+  }
+
+  // Modo memória: funciona enquanto a aba estiver aberta.
+  memoryStore=next;
+}
+
+function dbDelete(id){
+  if(storageMode==='indexeddb'){
+    return new Promise((resolve,reject)=>{
+      const tx=db.transaction(STORE,'readwrite');
+      tx.objectStore(STORE).delete(id);
+      tx.oncomplete=()=>resolve();tx.onerror=()=>reject(tx.error);
+    });
+  }
+  memoryStore=memoryStore.filter(x=>x.id!==id);
+  if(storageMode==='localstorage'){
+    try{persistLocalStore(memoryStore)}catch(e){}
+  }
+  return Promise.resolve();
+}
+
+function dbClear(){
+  if(storageMode==='indexeddb'){
+    return new Promise((resolve,reject)=>{
+      const tx=db.transaction(STORE,'readwrite');
+      tx.objectStore(STORE).clear();
+      tx.oncomplete=()=>resolve();tx.onerror=()=>reject(tx.error);
+    });
+  }
+  memoryStore=[];
+  if(storageMode==='localstorage')safeLsRemove(LS_DATA_KEY);
+  return Promise.resolve();
+}
+
+function updateStorageBanner(){
+  const el=document.getElementById('storageBanner');
+  if(!el)return;
+  if(storageMode==='indexeddb'){
+    el.className='statusLine ok';
+    el.textContent='✓ Armazenamento: IndexedDB — modo completo.';
+  }else if(storageMode==='localstorage'){
+    el.className='statusLine warn';
+    el.textContent='⚠ Armazenamento: modo compatível (localStorage). Funciona com HTML local; use poucas fotos por medição e exporte backups ao longo do trabalho.';
+  }else{
+    el.className='statusLine fail';
+    el.textContent='⚠ Armazenamento persistente bloqueado pelo navegador. O app funciona somente enquanto esta aba permanecer aberta. Exporte backup com frequência.';
+  }
+}
+
+async function refreshData(){
+  measurements=(await dbAll()).sort((a,b)=>new Date(b.timestamp)-new Date(a.timestamp));
+  renderAll();
+  updateStorageBanner();
+}
+
+function showView(name){
+  ['Home','Measure','Table','Merge','Audit'].forEach(v=>{
+    document.getElementById('view'+v).classList.toggle('hidden',v!==name);
+    const n=document.getElementById('nav'+v); if(n)n.classList.toggle('active',v===name);
+  });
+  if(name==='Table')renderConsolidated();
+  if(name==='Merge')renderMerge();
+  if(name==='Audit')renderAudit();
+  window.scrollTo(0,0);
+}
+function goHome(){showView('Home')}
+
+function moduleData(){
+  const out={};
+  for(const l of LOCATIONS){(out[l.module]??=[]).push(l)}
+  return out;
+}
+function recordsFor(locId){return measurements.filter(m=>m.locationId===locId)}
+function measuredLocationsCount(){
+  return new Set(measurements.map(m=>m.locationId)).size;
+}
+function worstFor(locId){
+  const rec=recordsFor(locId);
+  const vals=rec.map(r=>Number(r.rssiDown)).filter(Number.isFinite);
+  return {n:rec.length,rssiDown:vals.length?Math.min(...vals):null};
+}
+function rssiClass(v){
+  if(v===null||v===undefined||v==='')return '';
+  if(v < -78)return 'bad';
+  if(v < -75)return 'mid';
+  return 'good';
+}
+function levelBadge(loc){
+  const w=worstFor(loc.id);
+  if(!w.n)return '<span class="badge b0">Pendente</span>';
+  if(w.rssiDown < -78)return '<span class="badge b3">Fora critério</span>';
+  if(w.rssiDown < -75)return '<span class="badge b2">Punch &lt; -75</span>';
+  return '<span class="badge b1">'+w.n+' med.</span>';
+}
+
+function renderHome(){
+  const md=moduleData(), list=document.getElementById('moduleList');list.innerHTML='';
+  for(const [mod,locs] of Object.entries(md)){
+    const done=locs.filter(l=>recordsFor(l.id).length).length;
+    const pct=Math.round(done/locs.length*100);
+    const box=document.createElement('div');box.className='module';
+    box.innerHTML=`
+      <div class="moduleHead" onclick="this.nextElementSibling.classList.toggle('hidden')">
+        <div class="name">${mod}</div>
+        <div class="bar"><i style="width:${pct}%"></i></div>
+        <div class="count">${done}/${locs.length}</div>
+      </div>
+      <div class="levels hidden">${locs.map(l=>`
+        <div class="level">
+          <div class="txt"><b>${esc(l.area)}</b><small>${esc(l.elevation)}</small></div>
+          ${levelBadge(l)}
+          <button class="btn secondary" ${inspectionSaved()?'':'disabled style="opacity:.45"'} onclick="openMeasure('${l.id}')">Abrir</button>
+        </div>`).join('')}</div>`;
+    list.appendChild(box);
+  }
+  const done=measuredLocationsCount();
+  kpiLocations.textContent=LOCATIONS.length;
+  kpiDone.textContent=done;
+  kpiMeasurements.textContent=measurements.length;
+  let fail=0;
+  for(const l of LOCATIONS){
+    const w=worstFor(l.id);
+    if(w.rssiDown!==null && w.rssiDown < -78)fail++;
+  }
+  kpiFail.textContent=fail;
+  const pct=Math.round(done/LOCATIONS.length*100);
+  progressPct.textContent=pct+'%';progressBar.style.width=pct+'%';
+  progressText.textContent=`${done} de ${LOCATIONS.length} pontos possuem pelo menos uma medição`;
+}
+function openMeasure(id){
+  if(!inspectionSaved()){
+    toast('Salve a inspeção na tela inicial antes de realizar medições.');
+    showView('Home');
+    return;
+  }
+  currentLocation=LOCATIONS.find(l=>l.id===id); if(!currentLocation)return;
+  measureTitle.textContent=`${currentLocation.module} — ${currentLocation.area}`;
+  measureMeta.textContent=`${currentLocation.elevation}`;
+  clearMeasurementForm();
+  renderPointHistory();
+  showView('Measure');
+  updateEvidenceGate();
+}
+function clearMeasurementForm(){
+  const rssi=document.getElementById('rssiDownAbs');
+  if(rssi)rssi.value='';
+  document.getElementById('remarks').value='';
+  photoInput.value='';
+  pendingPhotos=[];
+  renderPhotoPreview();
+  const pbs=document.getElementById('photoBackupStatus');
+  if(pbs){
+    pbs.className='statusLine info';
+    pbs.textContent='Nenhuma cópia de segurança gerada nesta medição.';
+  }
+  gpsStatus.className='statusLine info';
+  gpsStatus.textContent='A coordenada será capturada no momento do registro.';
+  updateEvidenceGate();
+}
+function renderPointHistory(){
+  if(!currentLocation)return;
+  const rs=recordsFor(currentLocation.id);
+  const w=worstFor(currentLocation.id);
+  const pn=document.getElementById('pointNumber');
+  if(pn)pn.textContent=`Próximo registro: ponto ${rs.length+1} deste local.`;
+
+  if(!rs.length){
+    pointSummary.innerHTML='<div class="statusLine info">Nenhuma medição registrada neste local.</div>';
+    pointRecords.innerHTML='';
+    return;
+  }
+  pointSummary.innerHTML=`<div class="grid2">
+    <div class="metricbox"><small>Medições neste local</small><div class="value">${rs.length}</div></div>
+    <div class="metricbox"><small>Pior Downlink</small><div class="value">${fmt(w.rssiDown,' dBm')}</div></div>
+  </div>`;
+  const chronological=[...rs].sort((a,b)=>new Date(a.timestamp)-new Date(b.timestamp));
+  pointRecords.innerHTML=chronological.map((r,i)=>`
+    <div class="listRec">
+      <div class="top">
+        <div><b>Ponto ${i+1} — ${fmt(r.rssiDown,' dBm')}</b><div class="small">${esc(r.tech?.name||'')} • ${fmtDate(r.timestamp)}</div></div>
+        <button class="btn ghost" onclick="showRecord('${r.id}')">Detalhes</button>
+      </div>
+      <div class="small" style="margin-top:7px">${evidenceSummary(r)}</div>
+    </div>`).join('');
+}
+
+function parseNum(id){
+  const el=document.getElementById(id);
+  if(!el)return null;
+  const v=el.value.trim();
+  return v===''?null:Number(v);
+}
+function rssiDownValue(){
+  const el=document.getElementById('rssiDownAbs');
+  if(!el)return null;
+  const raw=el.value.trim();
+  if(raw==='')return null;
+  const n=Math.abs(Number(raw));
+  return Number.isFinite(n)?-n:null;
+}
+
+function evidenceState(){
+  return {
+    photo:(pendingPhotos||[]).length>=1
+  };
+}
+
+function updateEvidenceGate(){
+  const st=evidenceState();
+  const el=document.getElementById('evidenceGate');
+  const btn=document.getElementById('saveMeasurementBtn');
+  if(!el||!btn)return;
+
+  el.className='statusLine '+(st.photo?'ok':'warn');
+  el.innerHTML=`
+    <b>Para registrar a medição:</b><br>
+    ${st.photo?'☑':'☐'} Pelo menos 1 foto<br>
+    📍 GPS será capturado automaticamente ao salvar
+  `;
+
+  btn.disabled=!st.photo;
+  btn.className=st.photo?'btn green':'btn state-disabled';
+}
+
+function validateMeasurement(){
+  if(!inspectionSaved()){
+    toast('Crie uma nova inspeção antes de registrar medições.');
+    showView('Home');
+    return false;
+  }
+  if((pendingPhotos||[]).length<1){
+    toast('Adicione pelo menos 1 foto antes de salvar a medição.');
+    return false;
+  }
+  const p=profile();
+  if(!p.name||!p.matricula){
+    toast('Preencha Nome e Matrícula na tela inicial antes de registrar.');
+    return false;
+  }
+  const rssi=rssiDownValue();
+  if(rssi===null){
+    toast('Informe o RSSI Downlink.');
+    return false;
+  }
+  if(rssi>=0 || rssi < -150){
+    toast('Digite apenas o valor absoluto, por exemplo 67.');
+    return false;
+  }
+  return true;
+}
+function getGpsFix(){
+  return new Promise((resolve,reject)=>{
+    if(!navigator.geolocation){
+      reject(new Error('Geolocalização não suportada neste navegador.'));
+      return;
+    }
+
+    navigator.geolocation.getCurrentPosition(
+      pos=>resolve(geoPoint(pos)),
+      err=>reject(err),
+      {enableHighAccuracy:true,maximumAge:0,timeout:20000}
+    );
+  });
+}
+
+async function saveMeasurement(){
+  if(!currentLocation||!validateMeasurement())return;
+
+  const btn=document.getElementById('saveMeasurementBtn');
+  const oldText=btn.textContent;
+  btn.disabled=true;
+  btn.className='btn state-disabled';
+  btn.textContent='📍 Obtendo GPS...';
+
+  gpsStatus.className='statusLine info';
+  gpsStatus.textContent='Capturando a coordenada desta medição...';
+
+  let point;
+  try{
+    point=await getGpsFix();
+  }catch(err){
+    gpsStatus.className='statusLine fail';
+    gpsStatus.textContent='Não foi possível obter o GPS: '+(err.message||'erro de localização');
+    toast('Medição não salva: não foi possível obter a coordenada GPS.');
+    btn.textContent=oldText;
+    updateEvidenceGate();
+    return;
+  }
+
+  updateCurrentGpsDisplay(point);
+  gpsStatus.className='statusLine ok';
+  gpsStatus.textContent=`GPS capturado • ${point.lat.toFixed(6)}, ${point.lon.toFixed(6)} • precisão ±${Math.round(point.acc)} m`;
+
+  const rec={
+    id:uid(),
+    schema:2,
+    locationId:currentLocation.id,
+    module:currentLocation.module,
+    area:currentLocation.area,
+    elevation:currentLocation.elevation,
+    rssiDown:rssiDownValue(),
+    remarks:remarks.value.trim(),
+    timestamp:new Date().toISOString(),
+    tech:profile(),
+    gps:{point:point},
+    photos:pendingPhotos
+  };
+
+  await dbPut(rec);
+  await refreshData();
+  renderPointHistory();
+
+  toast('Medição registrada com GPS.');
+  document.getElementById('rssiDownAbs').value='';
+  document.getElementById('remarks').value='';
+  photoInput.value='';
+  pendingPhotos=[];
+  renderPhotoPreview();
+  btn.textContent='💾 Registrar medição';
+  updateEvidenceGate();
+}
+
+function updateHttpsGate(){
+  const el=document.getElementById('httpsGate');
+  if(!el)return;
+  const secure=window.isSecureContext && location.protocol==='https:';
+  if(secure){
+    el.className='statusLine ok';
+    el.innerHTML='✓ HTTPS ativo. GPS disponível para captura no momento da medição.';
+  }else{
+    el.className='statusLine warn';
+    el.innerHTML='⚠ Abra o app por HTTPS para usar o GPS.';
+  }
+}
+
+function geoPoint(pos){
+  return {
+    lat:pos.coords.latitude,
+    lon:pos.coords.longitude,
+    acc:pos.coords.accuracy,
+    alt:pos.coords.altitude,
+    ts:Number(pos.timestamp)||Date.now()
+  };
+}
+
+function updateCurrentGpsDisplay(p){
+  if(!p)return;
+  nativeGeoLast=p;
+  const lat=document.getElementById('gpsLat');
+  const lon=document.getElementById('gpsLon');
+  const acc=document.getElementById('gpsAccuracy');
+  const tm=document.getElementById('gpsFixTime');
+  if(lat)lat.textContent=p.lat.toFixed(6);
+  if(lon)lon.textContent=p.lon.toFixed(6);
+  if(acc)acc.textContent='±'+Math.round(p.acc)+' m';
+  if(tm)tm.textContent=new Date(p.ts).toLocaleTimeString('pt-BR');
+}
+
+async function testGpsHttps(){
+  updateHttpsGate();
+  gpsStatus.className='statusLine info';
+  gpsStatus.textContent='Testando GPS...';
+  try{
+    const p=await getGpsFix();
+    updateCurrentGpsDisplay(p);
+    gpsStatus.className='statusLine ok';
+    gpsStatus.textContent=`GPS OK • ${p.lat.toFixed(6)}, ${p.lon.toFixed(6)} • precisão ±${Math.round(p.acc)} m`;
+    toast('GPS funcionando.');
+  }catch(err){
+    gpsStatus.className='statusLine fail';
+    gpsStatus.textContent='GPS não autorizado: '+(err.message||'erro');
+    toast('Não foi possível obter o GPS.');
+  }
+}
+
+function photoStamp(){
+  const d=new Date(),p=n=>String(n).padStart(2,'0');
+  return `${d.getFullYear()}${p(d.getMonth()+1)}${p(d.getDate())}_${p(d.getHours())}${p(d.getMinutes())}${p(d.getSeconds())}`;
+}
+
+function photoBackupName(photoIndex=1){
+  const loc=currentLocation||{module:'SEM_MODULO',area:'SEM_LOCAL'};
+  const pointNo=recordsFor(loc.id||'').length+1;
+  const suffix=photoIndex>1?`_F${String(photoIndex).padStart(2,'0')}`:'';
+  return `TAP_UHF_${safeName(loc.module)}_${safeName(loc.area)}_P${String(pointNo).padStart(2,'0')}${suffix}_${photoStamp()}.jpg`;
+}
+
+function fileToBackupJpeg(file,maxDim=2600,quality=.92){
+  return new Promise((resolve,reject)=>{
+    const fr=new FileReader();
+    fr.onload=()=>{
+      const img=new Image();
+      img.onload=()=>{
+        let w=img.width,h=img.height;
+        const scale=Math.min(1,maxDim/Math.max(w,h));
+        w=Math.round(w*scale);h=Math.round(h*scale);
+        const c=document.createElement('canvas');
+        c.width=w;c.height=h;
+        c.getContext('2d',{alpha:false}).drawImage(img,0,0,w,h);
+        c.toBlob(blob=>blob?resolve(blob):reject(new Error('Falha ao gerar JPG.')),'image/jpeg',quality);
+      };
+      img.onerror=reject;
+      img.src=fr.result;
+    };
+    fr.onerror=reject;
+    fr.readAsDataURL(file);
+  });
+}
+
+function downloadBlob(name,blob){
+  const u=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=u;
+  a.download=name;
+  a.style.display='none';
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  setTimeout(()=>URL.revokeObjectURL(u),3000);
+}
+
+async function savePhotoBackupToDevice(file,photoIndex=1){
+  const blob=await fileToBackupJpeg(file);
+  const name=photoBackupName(photoIndex);
+  downloadBlob(name,blob);
+  return name;
+}
+
+photoInput.addEventListener('change',async e=>{
+  pendingPhotos=[];
+  const files=[...e.target.files];
+  const backupNames=[];
+  let backupErrors=0;
+
+  for(let i=0;i<files.length;i++){
+    const file=files[i];
+
+    // Primeiro tenta criar a cópia externa de segurança.
+    try{
+      const name=await savePhotoBackupToDevice(file,i+1);
+      backupNames.push(name);
+    }catch(err){
+      console.error('Backup da foto:',err);
+      backupErrors++;
+    }
+
+    // Depois cria a cópia comprimida para armazenamento interno do app.
+    try{
+      pendingPhotos.push(await compressImage(file,900,0.50));
+    }catch(err){
+      console.error('Compressão da foto:',err);
+    }
+  }
+
+  const pbs=document.getElementById('photoBackupStatus');
+  if(pbs){
+    if(backupNames.length && !backupErrors){
+      pbs.className='statusLine ok';
+      pbs.innerHTML=`✓ Cópia JPG de segurança solicitada ao aparelho.<br><span class="small">${backupNames.map(esc).join('<br>')}</span>`;
+    }else if(backupNames.length){
+      pbs.className='statusLine warn';
+      pbs.textContent=`${backupNames.length} cópia(s) solicitada(s), mas ${backupErrors} falharam.`;
+    }else{
+      pbs.className='statusLine fail';
+      pbs.textContent='Não foi possível gerar a cópia JPG externa. A foto interna do app ainda pode ser usada.';
+    }
+  }
+
+  renderPhotoPreview();
+  updateEvidenceGate();
+});
+function compressImage(file,maxDim=900,quality=.50){
+  return new Promise((resolve,reject)=>{
+    const fr=new FileReader();
+    fr.onload=()=>{
+      const img=new Image();
+      img.onload=()=>{
+        let w=img.width,h=img.height;
+        const scale=Math.min(1,maxDim/Math.max(w,h));w=Math.round(w*scale);h=Math.round(h*scale);
+        const c=document.createElement('canvas');c.width=w;c.height=h;
+        c.getContext('2d').drawImage(img,0,0,w,h);
+        resolve({name:file.name,type:'image/jpeg',data:c.toDataURL('image/jpeg',quality),width:w,height:h});
+      };
+      img.onerror=reject;img.src=fr.result;
+    };
+    fr.onerror=reject;fr.readAsDataURL(file);
+  });
+}
+function renderPhotoPreview(){
+  photoPreview.innerHTML=pendingPhotos.map((p,i)=>`<div style="position:relative"><img src="${p.data}"><button onclick="pendingPhotos.splice(${i},1);renderPhotoPreview();updateEvidenceGate()" style="position:absolute;right:3px;top:3px;padding:3px 6px;background:#0009;color:white">×</button></div>`).join('');
+}
+
+function renderConsolidated(){
+  consolidatedBody.innerHTML=LOCATIONS.map(l=>{
+    const w=worstFor(l.id),rs=recordsFor(l.id),worstRec=findWorstRecord(rs);
+    return `<tr>
+      <td class="num"><b>${l.module}</b></td>
+      <td>${esc(l.area)}</td><td>${esc(l.elevation)}</td><td class="num">${w.n||''}</td>
+      <td class="num worst ${rssiClass(w.rssiDown)}">${fmt(w.rssiDown,' dBm')}</td>
+      <td>${worstRec?`${esc(worstRec.tech?.name||'')}<br><span class="small">${fmtDate(worstRec.timestamp)} • ${evidenceSummary(worstRec)}</span>`:''}</td>
+    </tr>`;
+  }).join('');
+}
+function findWorstRecord(rs){
+  if(!rs.length)return null;
+  return [...rs].sort((a,b)=>{
+    const av=Number.isFinite(Number(a.rssiDown))?Number(a.rssiDown):999;
+    const bv=Number.isFinite(Number(b.rssiDown))?Number(b.rssiDown):999;
+    return av-bv;
+  })[0];
+}
+
+function renderMerge(){
+  mergeLocalCount.textContent=measurements.length;
+  const people={};
+  for(const m of measurements){
+    const k=(m.tech?.matricula||'sem matrícula')+'|'+(m.tech?.name||'sem nome');
+    people[k]=(people[k]||0)+1;
+  }
+  mergeTechCount.textContent=Object.keys(people).length;
+  techList.innerHTML=Object.entries(people).map(([k,n])=>{
+    const [mat,name]=k.split('|');return `<div>• <b>${esc(name)}</b> — ${esc(mat)}: ${n} medições</div>`;
+  }).join('')||'Nenhuma medição ainda.';
+}
+async function exportBackup(){
+  const payload={
+    format:'P82_TAP_UHF_BACKUP',version:10,exportedAt:new Date().toISOString(),
+    sourceProfile:profile(),locationsVersion:'FIELD-LIST-128-V17-2026-08-17',
+    measurements
+  };
+  downloadText(`TAP_UHF_Backup_${safeName(profile().name||'Tecnico')}_${dateStamp()}.json`,JSON.stringify(payload,null,2),'application/json');
+}
+async function importBackups(files){
+  if(!files?.length)return;
+  let added=0,dup=0,invalid=0;
+  for(const file of files){
+    try{
+      const obj=JSON.parse(await file.text());
+      if(obj.format!=='P82_TAP_UHF_BACKUP'||!Array.isArray(obj.measurements)){invalid++;continue}
+      const existing=new Set(measurements.map(m=>m.id));
+      for(const m of obj.measurements){
+        if(!m.id||existing.has(m.id)){dup++;continue}
+        await dbPut(m);existing.add(m.id);added++;
+      }
+      measurements=await dbAll();
+    }catch(e){invalid++}
+  }
+  await refreshData();renderMerge();
+  toast(`Mesclagem concluída: ${added} adicionadas, ${dup} repetidas, ${invalid} arquivo(s) inválido(s).`);
+  importFile.value='';
+}
+
+function gpsPointOf(r){
+  if(r?.gps?.point) return r.gps.point;
+  const pts=r?.gps?.points||[];
+  return pts.length?pts[pts.length-1]:null;
+}
+
+function renderAudit(){
+  if(!measurements.length){
+    auditList.innerHTML='<div class="statusLine info">Nenhuma medição registrada.</div>';
+    return;
+  }
+
+  auditList.innerHTML=measurements.map(r=>{
+    const p=gpsPointOf(r);
+    return `<div class="listRec">
+      <div class="top">
+        <div>
+          <b>${r.module} — ${esc(r.area)}</b>
+          <div class="small">${esc(r.tech?.name||'')} • ${fmtDate(r.timestamp)}</div>
+        </div>
+        <button class="btn ghost" onclick="showRecord('${r.id}')">Abrir</button>
+      </div>
+      <div class="statusLine ${p?'ok':'warn'}" style="margin:8px 0 0">
+        ${p
+          ? `GPS ${p.lat.toFixed(6)}, ${p.lon.toFixed(6)} • precisão ±${Math.round(p.acc)} m`
+          : 'Sem coordenada GPS'}
+        • ${(r.photos||[]).length} foto(s)
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function showRecord(id){
+  const r=measurements.find(x=>x.id===id);if(!r)return;
+  const p=gpsPointOf(r);
+  modalContent.innerHTML=`
+    <div class="card" style="box-shadow:none;margin-top:10px">
+      <b>${r.module} — ${esc(r.area)}</b><div class="small">${esc(r.elevation)}</div>
+      <hr>
+      <div class="grid2">
+        <div><b>Técnico</b><div>${esc(r.tech?.name||'')} — ${esc(r.tech?.matricula||'')}</div></div>
+        <div><b>Data/hora</b><div>${fmtDate(r.timestamp)}</div></div>
+        <div><b>RSSI Downlink</b><div>${fmt(r.rssiDown,' dBm')}</div></div>
+      </div>
+      <hr><b>GPS da medição</b>
+      ${p?`<div class="mono" style="margin-top:7px">Latitude: ${p.lat.toFixed(6)}<br>Longitude: ${p.lon.toFixed(6)}<br>Precisão: ±${Math.round(p.acc)} m<br>Horário GPS: ${new Date(p.ts).toLocaleString('pt-BR')}</div>`:'<div class="small">Sem coordenadas.</div>'}
+      <hr><b>Observação</b><div>${esc(r.remarks||'—')}</div>
+      <hr><b>Fotos</b><div class="photoPreview">${(r.photos||[]).map(p=>`<img src="${p.data}" onclick="window.open(this.src)">`).join('')||'<span class="small">Nenhuma foto.</span>'}</div>
+      <hr><button class="btn red" onclick="deleteRecord('${r.id}')">Excluir esta medição</button>
+    </div>`;
+  detailModal.classList.remove('hidden');
+}
+function closeModal(){detailModal.classList.add('hidden')}
+async function deleteRecord(id){
+  if(!confirm('Excluir esta medição?'))return;
+  await dbDelete(id);closeModal();await refreshData();if(currentLocation)renderPointHistory();
+}
+async function clearAllData(){
+  if(!confirm('ATENÇÃO: isso apagará TODAS as medições e fotos salvas neste navegador. Faça backup antes. Continuar?'))return;
+  await dbClear();await refreshData();toast('Dados apagados.');
+}
+
+function exportConsolidatedCsv(){
+  const rows=[['ITEM','MÓDULO','ÁREA / NÍVEL','ELEVAÇÃO','N MEDIÇÕES','PIOR RSSI DOWNLINK (dBm)','TÉCNICO','DATA/HORA','GPS LAT','GPS LON','PRECISÃO GPS (m)','REMARKS']];
+  LOCATIONS.forEach((l,i)=>{
+    const w=worstFor(l.id),rs=recordsFor(l.id),wr=findWorstRecord(rs),p=gpsPointOf(wr);
+    rows.push([i+1,l.module,l.area,l.elevation,w.n||'',nv(w.rssiDown),wr?.tech?.name||'',wr?.timestamp||'',p?.lat??'',p?.lon??'',p?.acc??'',wr?.remarks||'']);
+  });
+  downloadCsv(`TAP_UHF_Tabela_Consolidada_${dateStamp()}.csv`,rows);
+}
+function exportRawCsv(){
+  const rows=[['ID','MÓDULO','ÁREA / NÍVEL','ELEVAÇÃO','RSSI DOWNLINK (dBm)','TÉCNICO','MATRÍCULA','DATA/HORA','GPS LAT','GPS LON','PRECISÃO GPS (m)','HORÁRIO GPS','FOTOS','REMARKS']];
+  measurements.forEach(r=>{
+    const p=gpsPointOf(r);
+    rows.push([r.id,r.module,r.area,r.elevation,nv(r.rssiDown),r.tech?.name||'',r.tech?.matricula||'',r.timestamp,p?.lat??'',p?.lon??'',p?.acc??'',p?.ts?new Date(p.ts).toISOString():'',(r.photos||[]).length,r.remarks||'']);
+  });
+  downloadCsv(`TAP_UHF_Medicoes_Brutas_${dateStamp()}.csv`,rows);
+}
+
+function xmlEsc(x){
+  return String(x??'').replace(/[<>&'"]/g,c=>({
+    '<':'&lt;','>':'&gt;','&':'&amp;',"'":'&apos;','"':'&quot;'
+  }[c]));
+}
+
+function kmlStyleForRssi(v){
+  const n=Number(v);
+  if(!Number.isFinite(n))return 'rssi_unknown';
+  if(n < -78)return 'rssi_red';
+  if(n < -75)return 'rssi_yellow';
+  return 'rssi_green';
+}
+
+function exportKml(){
+  const withGps=measurements.filter(r=>gpsPointOf(r));
+  if(!withGps.length){
+    toast('Nenhuma medição com GPS para exportar.');
+    return;
+  }
+
+  // Número sequencial de cada ponto dentro de cada local.
+  const pointNoById={};
+  for(const loc of LOCATIONS){
+    const rs=recordsFor(loc.id).slice().sort((a,b)=>new Date(a.timestamp)-new Date(b.timestamp));
+    rs.forEach((r,i)=>pointNoById[r.id]=i+1);
+  }
+
+  const moduleOrder=[...new Set(LOCATIONS.map(l=>l.module))];
+  let body='';
+
+  for(const module of moduleOrder){
+    const moduleRecords=withGps.filter(r=>r.module===module);
+    if(!moduleRecords.length)continue;
+
+    body+=`<Folder><name>${xmlEsc(module)}</name>`;
+
+    for(const r of moduleRecords){
+      const p=gpsPointOf(r);
+      const pointNo=pointNoById[r.id]||1;
+      const acc=Number.isFinite(Number(p.acc))?Math.round(Number(p.acc)):'—';
+      const label=`${r.module} | ${r.area} | P${String(pointNo).padStart(2,'0')} | ${fmt(r.rssiDown,' dBm')}`;
+      const description=[
+        `<b>Módulo:</b> ${xmlEsc(r.module)}`,
+        `<b>Local:</b> ${xmlEsc(r.area)}`,
+        `<b>Elevação:</b> ${xmlEsc(r.elevation)}`,
+        `<b>Ponto:</b> ${pointNo}`,
+        `<b>RSSI Downlink:</b> ${xmlEsc(fmt(r.rssiDown,' dBm'))}`,
+        `<b>Técnico:</b> ${xmlEsc(r.tech?.name||'')}`,
+        `<b>Matrícula:</b> ${xmlEsc(r.tech?.matricula||'')}`,
+        `<b>Data/hora:</b> ${xmlEsc(fmtDate(r.timestamp))}`,
+        `<b>Precisão GPS:</b> ±${xmlEsc(acc)} m`,
+        `<b>Latitude:</b> ${Number(p.lat).toFixed(6)}`,
+        `<b>Longitude:</b> ${Number(p.lon).toFixed(6)}`,
+        r.remarks?`<b>Observação:</b> ${xmlEsc(r.remarks)}`:''
+      ].filter(Boolean).join('<br>');
+
+      body+=`
+        <Placemark>
+          <name>${xmlEsc(label)}</name>
+          <styleUrl>#${kmlStyleForRssi(r.rssiDown)}</styleUrl>
+          <description><![CDATA[${description}]]></description>
+          <ExtendedData>
+            <Data name="module"><value>${xmlEsc(r.module)}</value></Data>
+            <Data name="area"><value>${xmlEsc(r.area)}</value></Data>
+            <Data name="elevation"><value>${xmlEsc(r.elevation)}</value></Data>
+            <Data name="point"><value>${pointNo}</value></Data>
+            <Data name="rssi_downlink_dbm"><value>${xmlEsc(nv(r.rssiDown))}</value></Data>
+            <Data name="technician"><value>${xmlEsc(r.tech?.name||'')}</value></Data>
+            <Data name="gps_accuracy_m"><value>${xmlEsc(p.acc??'')}</value></Data>
+          </ExtendedData>
+          <Point>
+            <altitudeMode>clampToGround</altitudeMode>
+            <coordinates>${Number(p.lon).toFixed(7)},${Number(p.lat).toFixed(7)},0</coordinates>
+          </Point>
+        </Placemark>`;
+    }
+
+    body+='</Folder>';
+  }
+
+  const kml=`<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+<Document>
+  <name>P-82 TAP UHF — Medições GPS</name>
+  <description>Medições de RSSI Downlink do SSOP 5515.001.</description>
+
+  <Style id="rssi_green">
+    <IconStyle><color>ff00aa00</color><scale>1.0</scale></IconStyle>
+    <LabelStyle><scale>0.8</scale></LabelStyle>
+  </Style>
+  <Style id="rssi_yellow">
+    <IconStyle><color>ff00ffff</color><scale>1.0</scale></IconStyle>
+    <LabelStyle><scale>0.8</scale></LabelStyle>
+  </Style>
+  <Style id="rssi_red">
+    <IconStyle><color>ff0000ff</color><scale>1.1</scale></IconStyle>
+    <LabelStyle><scale>0.8</scale></LabelStyle>
+  </Style>
+  <Style id="rssi_unknown">
+    <IconStyle><color>ffaaaaaa</color><scale>1.0</scale></IconStyle>
+  </Style>
+
+  ${body}
+</Document>
+</kml>`;
+
+  downloadText(`TAP_UHF_Mapa_GPS_${dateStamp()}.kml`,kml,'application/vnd.google-earth.kml+xml');
+  toast(`${withGps.length} pontos GPS exportados para KML.`);
+}
+
+function evidenceSummary(r){
+  const p=gpsPointOf(r);
+  const photos=(r.photos||[]).length;
+  return p
+    ? `GPS ${p.lat.toFixed(5)}, ${p.lon.toFixed(5)} • ±${Math.round(p.acc)} m • ${photos} foto(s)`
+    : `Sem GPS • ${photos} foto(s)`;
+}
+function fmt(v,s=''){return (v===null||v===undefined||v===''||!Number.isFinite(Number(v)))?'—':Number(v)+s}
+function nv(v){return (v===null||v===undefined||v===''||!Number.isFinite(Number(v)))?'':Number(v)}
+function fmtDuration(sec){sec=Math.max(0,Math.round(sec||0));const m=Math.floor(sec/60),s=sec%60;return String(m).padStart(2,'0')+':'+String(s).padStart(2,'0')}
+function fmtDate(x){try{return new Date(x).toLocaleString('pt-BR')}catch{return x||''}}
+function dateStamp(){const d=new Date(),p=n=>String(n).padStart(2,'0');return `${d.getFullYear()}${p(d.getMonth()+1)}${p(d.getDate())}_${p(d.getHours())}${p(d.getMinutes())}`}
+function safeName(x){return (x||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-zA-Z0-9_-]+/g,'_').slice(0,30)}
+function esc(x){return String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.style.display='block';clearTimeout(t._tm);t._tm=setTimeout(()=>t.style.display='none',3500)}
+function downloadText(name,text,type='text/plain'){
+  const b=new Blob([text],{type});const u=URL.createObjectURL(b);const a=document.createElement('a');a.href=u;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(u),1000)
+}
+function downloadCsv(name,rows){
+  const csv='\uFEFF'+rows.map(r=>r.map(v=>`"${String(v??'').replace(/"/g,'""')}"`).join(';')).join('\r\n');
+  downloadText(name,csv,'text/csv;charset=utf-8');
+}
+
+async function runDiagnostics(){
+  let permState='indisponível';
+  try{
+    if(navigator.permissions?.query){
+      const q=await navigator.permissions.query({name:'geolocation'});
+      permState=q.state;
+    }
+  }catch(e){}
+
+  let lines=[];
+  lines.push('Armazenamento: '+storageMode);
+  lines.push('GPS API: '+(navigator.geolocation?'disponível':'indisponível'));
+  lines.push('Permissão GPS: '+permState);
+  lines.push('Protocolo: '+location.protocol);
+  lines.push('Contexto seguro: '+(window.isSecureContext?'sim':'não'));
+  diag.textContent=lines.join(' • ');
+  updateStorageBanner();
+  updateHttpsGate();
+
+  if(location.protocol==='https:'){
+    testGpsHttps();
+  }else{
+    toast('Para testar GPS de verdade, abra esta mesma página por HTTPS.');
+  }
+}
+function renderAll(){renderHome();renderConsolidated();renderMerge();renderAudit();updateInspectionGate()}
+
+(async function init(){
+  try{
+    await openStorage();
+    loadProfile();
+    ['techName','techId'].forEach(id=>{
+      const el=document.getElementById(id);
+      if(el) el.addEventListener('input',()=>{ if(inspectionSaved()) markInspectionDirty(); });
+    });
+    await refreshData();
+    updateInspectionGate();
+    updateHttpsGate();
+    }catch(e){
+    console.error(e);
+    storageMode='memory';
+    memoryStore=[];
+    loadProfile();
+    measurements=[];
+    renderAll();
+    updateStorageBanner();
+    toast('App iniciado em modo temporário. Exporte backups com frequência.');
+  }
+})();
+</script>
+</body>
+</html>
